@@ -2,94 +2,86 @@
 
 ![FastAPI](https://img.shields.io/badge/API-FastAPI-brightgreen) ![React](https://img.shields.io/badge/Frontend-React-blue) ![Tailwind CSS](https://img.shields.io/badge/CSS-Tailwind%20CSS-teal) ![Docker](https://img.shields.io/badge/Container-Docker-blue) ![QEMU](https://img.shields.io/badge/VM-QEMU-orange)
 
-A unified control panel for managing **virtual disks**, **QEMU virtual machines**, and **Docker resources** through a FastAPI backend and a React + Tailwind CSS UI.
+A sleek dashboard to control **QEMU virtual machines**, **disk images**, and **Docker** containers via a FastAPI backend and React + Tailwind CSS frontend.
 
 ---
 
-## 🚀 Key Features
+## 🚀 Core Modules
 
-* **🗄️ Disk Management**
+* **🗄️ Disk Manager**
 
-  * Create, list, and delete QEMU disk images in formats: qcow2, vdi, vmdk, raw, img.
-  * Real‑time storage metrics: total, free, and used percentage.
+  * Create/List/Delete QEMU disk images (`qcow2`, `vdi`, `vmdk`, `raw`, `img`)
+  * View total, free, and used storage metrics
 
-* **📦 VM Orchestration**
+* **📦 VM Manager**
 
-  * Launch detached QEMU VMs with custom CPU, RAM, boot ISO, networking, and snapshot options.
-  * List and terminate running VMs by PID.
+  * Launch QEMU VMs with custom CPU, RAM, boot ISO, networking, and snapshots
+  * List running VMs and terminate by process ID
 
-* **🐳 Docker Integration**
+* **🐳 Docker Manager**
 
-  * Create and build Dockerfiles, list local images & containers.
-  * Search/pull images from Docker Hub and stop running containers.
+  * Build Dockerfiles, list images & containers
+  * Search/pull from Docker Hub and stop containers
 
-* **📂 Server-Side File Browser**
+* **📁 File Browser**
 
-  * Browse server directories to select disk folders, ISO images, or Dockerfile paths.
-
----
-
-## ⚙️ Architecture Overview
-
-```
-Client (React + Tailwind)  <─── HTTP JSON ───>  Server (FastAPI + Uvicorn)
-    │                                      │
-    │                                      ├─ QEMU CLI (vm launch, qemu-img)
-    │                                      ├─ Docker CLI (build, pull, list)
-    │                                      └─ Filesystem (VMs/, ISOs/, dockerfiles/)
-```
-
-* **Backend**: Python 3.11, FastAPI, `psutil` for process management, subprocess wrappers for CLI.
-* **Frontend**: React hooks, Axios for API calls, Tailwind CSS for styling.
-* **API**: Exposed under `/api/*` with CORS enabled for `http://localhost:9002`.
+  * Navigate server directories to pick disk folders, ISO files, or Dockerfile paths
 
 ---
 
-## 🔧 Getting Started
+## ⚙️ Architecture
 
-### Prerequisites
-
-* **Python 3.11+** with `fastapi`, `uvicorn`, `psutil`
-* **Node.js & npm**
-* **Docker CLI** & **QEMU (`qemu-img`)** installed and on PATH
-
-### Backend Setup
-
-```bash
-cd backend
-pip install fastapi uvicorn psutil
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```text
+[React + Tailwind] <-- HTTP/JSON --> [FastAPI]
+        │                            │
+        │                            ├─ QEMU CLI (qemu-img, qemu-system)
+        │                            ├─ Docker CLI (build, pull, ps)
+        │                            └─ Filesystem for VMs/, ISOs/, dockerfiles/
 ```
 
-### Frontend Setup
-
-```bash
-cd frontend
-npm install
-npm start   # Runs app on http://localhost:9002
-```
+* **Backend**: Python 3.11, FastAPI, `psutil` for process handling
+* **Frontend**: React hooks, Axios, Tailwind CSS
+* **API Root**: `/api/*` with CORS enabled for `http://localhost:9002`
 
 ---
 
-## 🚀 Usage
+## 🛠️ Setup & Run
 
-1. Open your browser and go to **[http://localhost:9002](http://localhost:9002)**.
-2. Use the **nav-tabs** to switch between:
+1. **Clone**: `git clone https://github.com/Mounir62/qemu-vm-and-docker-management.git`
+2. **Backend**:
 
-   * **Disk Manager**: create/delete disks and view storage stats.
-   * **VM Manager**: launch/stop QEMU VMs and browse ISOs.
-   * **Docker Manager**: manage Dockerfiles, images, and containers.
-3. All operations are reflected instantly via the REST API.
+   ```bash
+   cd backend
+   pip install fastapi uvicorn psutil
+   uvicorn main:app --reload --host 0.0.0.0 --port 8000
+   ```
+3. **Frontend**:
+
+   ```bash
+   cd frontend
+   npm install
+   npm start  # http://localhost:9002
+   ```
 
 ---
 
-## 📁 Project Structure
+## 🖥️ Usage
+
+* Navigate to **[http://localhost:9002](http://localhost:9002)** in your browser
+* Use tabs to switch:
+
+  * **Disk**: manage QEMU images
+  * **VM**: control virtual machines
+  * **Docker**: handle containers/images
+* All actions update live via REST API
+
+---
+
+## 📂 Project Layout
 
 ```
-/
-├── backend/
-│   └── main.py           # FastAPI server with /api endpoints
-└── frontend/
-    ├── components/       # React components (DiskManager, VMManager, DockerManager, Layout)
-    └── App.js            # Entry point mounting Layout
+/ (root)
+├── backend/        # FastAPI server (main.py)
+└── frontend/       # React + Tailwind components
+    └── components/ # DiskManager, VMManager, DockerManager, Layout
 ```
