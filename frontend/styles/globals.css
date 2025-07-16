@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Page background & default text */
+body {
+  @apply bg-primary-light min-h-screen text-gray-800;
+}
+
+/* Card container (white panels) */
+.card {
+  @apply bg-white rounded-lg shadow p-6 mb-6;
+}
+
+/* Navigation tabs container */
+.nav-tabs {
+  @apply bg-primary-light rounded-md mb-8 inline-block;
+}
+
+/* Individual tab */
+.nav-tab {
+  @apply inline-block px-6 py-3 text-primary hover:text-primary-dark cursor-pointer;
+}
+
+/* Active tab styling */
+.nav-tab-active {
+  @apply bg-white shadow text-primary font-semibold rounded-md;
+}
+
+/* Headings inside cards */
+.card h2 {
+  @apply font-semibold text-gray-900 mb-4;
+}
